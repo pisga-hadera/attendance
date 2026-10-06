@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<title>ניהול - נוכחות השתלמויות פסג"ה חדרה</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700&family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pg-orange:       #F9A349;
+  --pg-turquoise:    #6ECBD9;
+  --pg-coral:        #F16E60;
+  --pg-deep-teal:    #52A9B6;
+  --pg-orange-ink:   #A85410;
+  --pg-teal-ink:     #256069;
+  --pg-coral-ink:    #A82E20;
+  --pg-teal-solid:   #2E7580;
+  --pg-text:         #2A2B2D;
+  --pg-body:         #4A4C4F;
+  --pg-muted:        #6B6E71;
+  --pg-on-orange:    #3D2A12;
+  --pg-on-turquoise: #123338;
+  --pg-tint:         #DDE8EB;
+  --pg-orange-tint:  #FEF6EC;
+  --pg-teal-tint:    #EDF9FB;
+  --pg-surface:      #F7F8F8;
+  --pg-border:       #E3E6E7;
+  --pg-bg:           #FFFFFF;
+  --pg-radius-sm: 8px;
+  --pg-radius:    16px;
+  --pg-radius-lg: 24px;
+  --pg-radius-pill: 999px;
+  --pg-font-head: 'Rubik', 'Assistant', 'Arial Hebrew', sans-serif;
+  --pg-font-body: 'Assistant', 'Rubik', 'Arial Hebrew', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --pg-bg: #16191B; --pg-surface: #1F2325; --pg-border: #33383B;
+    --pg-tint: #1A2124; --pg-orange-tint: #2A1F14; --pg-teal-tint: #14262A;
+    --pg-text: #F2F4F4; --pg-body: #C9CCCE; --pg-muted: #9BA0A3;
+    --pg-orange-ink: #F9A349; --pg-teal-ink: #6ECBD9; --pg-coral-ink: #F16E60;
+  }
+}
+* { box-sizing: border-box; }
+body { font-family: var(--pg-font-body); background: var(--pg-tint); margin:0; direction: rtl; color: var(--pg-text); }
+.pg-header {
+  display:flex; align-items:center; justify-content:space-between; padding: 16px 20px;
+  background: var(--pg-bg); border-bottom: 1px solid var(--pg-border);
+}
+.pg-header .pg-textlogo { font-family: var(--pg-font-head); font-weight:700; font-size:1.125rem; color: var(--pg-teal-ink); }
+#lockBox .pg-textlogo { display:block; margin: 0 auto 14px; font-family: var(--pg-font-head); font-weight:700; font-size:1.125rem; color: var(--pg-teal-ink); }
+.pg-header .pg-tagline { font-size:12px; color: var(--pg-muted); margin-inline-end:12px; }
+.wrap { max-width: 520px; margin: 0 auto; padding: 24px 20px 80px; position:relative; }
+h1 { font-family: var(--pg-font-head); font-weight:700; color: var(--pg-text);
+  font-size: clamp(1.3rem, 5vw, 1.6rem); text-align:center; margin: 8px 0 0; }
+.pg-seam { height:4px; border:0; border-radius:2px; margin: 14px 0 22px;
+  background: linear-gradient(to left, var(--pg-orange) 50%, var(--pg-turquoise) 50%); }
+.card { background: var(--pg-bg); border-radius: var(--pg-radius-lg); padding: 22px; margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(37,96,105,.08), 0 12px 32px rgba(37,96,105,.06); }
+label { display:block; font-size:0.9375rem; font-weight:600; color: var(--pg-body); margin: 14px 0 6px; }
+input[type=text], input[type=password], input[type=file] {
+  width:100%; box-sizing:border-box; padding:12px 14px; border:1px solid var(--pg-border);
+  border-radius: var(--pg-radius-sm); font-size:1.0625rem; font-family: var(--pg-font-body);
+  background: var(--pg-surface); color: var(--pg-text);
+}
+input:focus { outline:2px solid var(--pg-turquoise); outline-offset:1px; }
+button.pg-btn {
+  font-family: var(--pg-font-body); font-weight:700; font-size:1.0625rem; border:none; cursor:pointer;
+  border-radius: var(--pg-radius-pill); padding: 14px 20px; width:100%; margin-top:16px;
+  transition: transform .08s ease;
+}
+button.pg-btn:active { transform: scale(0.98); }
+button.pg-btn.primary { background: var(--pg-orange); color: var(--pg-on-orange); }
+button.pg-btn.primary:disabled { opacity:.55; cursor:default; }
+button.pg-btn.secondary { background: var(--pg-teal-tint); color: var(--pg-teal-ink); font-size:0.9375rem; padding:11px 16px; }
+button.pg-btn.ghost { background: transparent; border:1.5px dashed var(--pg-teal-ink); color: var(--pg-teal-ink); font-size:0.9375rem; padding:11px 16px; }
+.msg { margin-top:14px; padding:14px 16px; border-radius: var(--pg-radius); font-size:0.9375rem; font-weight:600; }
+.msg.ok { background: var(--pg-orange-tint); color: var(--pg-orange-ink); }
+.msg.err { background: #FBEAEA; color: var(--pg-coral-ink); }
+.spinner { display:none; text-align:center; margin-top:12px; font-size:0.9375rem; color: var(--pg-muted); }
+.pg-back { display:block; text-align:center; margin-bottom:18px; color: var(--pg-teal-ink); font-size:0.9375rem; text-decoration:none; font-weight:600; }
+#lockOverlay { position:fixed; inset:0; background: var(--pg-tint); display:flex; align-items:center; justify-content:center; z-index:50; }
+#lockBox { background: var(--pg-bg); border-radius: var(--pg-radius-lg); box-shadow: 0 12px 32px rgba(37,96,105,.15); padding:32px; width:280px; text-align:center; }
+#lockBox h2 { color: var(--pg-teal-ink); font-family: var(--pg-font-head); font-size:1.15rem; margin-top:0; }
+#lockBox img { height:40px; display:block; margin: 0 auto 14px; }
+#mainContent { display:none; }
+hr.divider { border:0; border-top:1px solid var(--pg-border); margin:22px 0; }
+.small-note { font-size:0.8125rem; color: var(--pg-muted); text-align:center; margin-top:8px; }
+.pg-brand { text-decoration:none; display:flex; align-items:center; }
+.pg-logo { height:40px; display:block; }
+</style>
+</head>
+<body>
+  <div id="lockOverlay">
+    <div id="lockBox">
+      <a class="pg-brand" href="index.html" style="justify-content:center;margin-bottom:14px;"><img class="pg-logo" src="logo.png" alt="פסג&quot;ה חדרה" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="pg-textlogo" style="display:none">פסג"ה חדרה</span></a>
+      <h2>🔒 מסך ניהול</h2>
+      <input type="password" id="pwdInput" placeholder="סיסמה" autocomplete="current-password">
+      <button class="pg-btn primary" id="pwdBtn">כניסה</button>
+      <div id="pwdMsg" class="msg err" style="display:none;"></div>
+    </div>
+  </div>
+
+  <div id="mainContent">
+    <div class="pg-header">
+      <a class="pg-brand" href="index.html"><img class="pg-logo" src="logo.png" alt="פסג&quot;ה חדרה" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="pg-textlogo" style="display:none">פסג"ה חדרה</span></a>
+      <a class="pg-admin-link" href="index.html">⇦ למסך המנחה</a>
+    </div>
+    <div class="wrap">
+      <h1>מסך רכז/ת 🗂️<br>פתיחת השתלמות</h1>
+      <hr class="pg-seam">
+
+      <div class="card">
+        <button class="pg-btn secondary" id="refreshBtn">🔄 רענן רשימת השתלמויות מהקטלוג</button>
+        <div id="refreshMsg" class="spinner"></div>
+
+        <label for="matzpenCode">מספר ההשתלמות במצפן</label>
+        <input type="text" id="matzpenCode" placeholder="לדוגמה: 201412">
+
+        <label for="fileInput">קובץ אקסל עם רשימת המשתתפים (ת"ז, שם, דוא"ל, פסגה)</label>
+        <input type="file" id="fileInput" accept=".xlsx,.xls">
+
+        <button class="pg-btn primary" id="submitBtn">🚀 צור השתלמות ושלח למנחה</button>
+        <div class="spinner" id="submitSpinner">שולחת, רגע בבקשה...</div>
+        <div id="resultMsg"></div>
+
+        <hr class="divider">
+        <button class="pg-btn ghost" id="demoBtn">✨ צור השתלמות לדוגמה לבדיקה</button>
+        <div class="spinner" id="demoSpinner">יוצרת דמו...</div>
+        <div id="demoMsg"></div>
+        <div class="small-note">יוצר השתלמות פיקטיבית עם 5 משתתפים, בלי צורך בקובץ אקסל - נוח לבדיקת המערכת.</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const API_URL = 'https://script.google.com/macros/s/AKfycbycWciCqw49AsA_DP1ctMYZPSzWs2LAYT0iuylTO9JY_td-LM6K_1AD7abUJ9GqTloT/exec';
+
+  async function api(action, params) {
+    let res;
+    try {
+      res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: action, params: params || {} }) });
+    } catch (e) {
+      throw new Error('אין חיבור לשרת. בדקי את החיבור לאינטרנט ונסי שוב.');
+    }
+    let json;
+    try { json = await res.json(); } catch (e) { throw new Error('התקבלה תשובה לא תקינה מהשרת.'); }
+    if (!json.ok) throw new Error(json.error || 'שגיאה לא ידועה');
+    return json.data;
+  }
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  let adminPwd = '';   // נשמר רק בזיכרון הדף, ונשלח לשרת בכל פעולת ניהול (השרת בודק אותו בכל פעם)
+
+  $('pwdBtn').onclick = checkPwd;
+  $('pwdInput').onkeydown = function (ev) { if (ev.key === 'Enter') checkPwd(); };
+  $('refreshBtn').onclick = refreshList;
+  $('submitBtn').onclick = createCourse;
+  $('demoBtn').onclick = createDemo;
+
+  async function checkPwd() {
+    const pwd = $('pwdInput').value;
+    const msg = $('pwdMsg');
+    msg.style.display = 'none';
+    try {
+      const ok = await api('verifyAdminPassword', { pwd: pwd });
+      if (ok) {
+        adminPwd = pwd;
+        $('lockOverlay').style.display = 'none';
+        $('mainContent').style.display = 'block';
+      } else {
+        msg.textContent = 'סיסמה שגויה';
+        msg.style.display = 'block';
+      }
+    } catch (e) {
+      msg.textContent = e.message;
+      msg.style.display = 'block';
+    }
+  }
+
+  async function refreshList() {
+    const el = $('refreshMsg');
+    el.style.display = 'block';
+    el.textContent = 'מרעננת...';
+    try {
+      const n = await api('refreshMenachimTab', { pwd: adminPwd });
+      el.textContent = '✔ עודכנו ' + n + ' השתלמויות מהקטלוג';
+      setTimeout(function () { el.style.display = 'none'; }, 3000);
+    } catch (e) {
+      el.textContent = 'שגיאה: ' + e.message;
+    }
+  }
+
+  function readFileAsBase64(file) {
+    return new Promise(function (resolve, reject) {
+      const reader = new FileReader();
+      reader.onload = function (ev) { resolve(String(ev.target.result).split(',')[1]); };
+      reader.onerror = function () { reject(new Error('לא הצלחתי לקרוא את הקובץ.')); };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function createCourse() {
+    const code = $('matzpenCode').value.trim();
+    $('resultMsg').innerHTML = '';
+    if (!code) { showResult(false, 'נא להזין מספר השתלמות במצפן'); return; }
+    const fileInput = $('fileInput');
+    if (!fileInput.files.length) { showResult(false, 'נא לבחור קובץ אקסל'); return; }
+
+    $('submitBtn').disabled = true;
+    $('submitSpinner').style.display = 'block';
+    const file = fileInput.files[0];
+    try {
+      const base64 = await readFileAsBase64(file);
+      const res = await api('createCourseFromUpload', { pwd: adminPwd, code: code, base64: base64, mimeType: file.type, fileName: file.name });
+      showResult(true, '🎉 ההשתלמות "' + esc(res.courseName) + '" נוצרה בהצלחה עם ' + esc(res.participantsCount) + ' משתתפים. מייל נשלח למנחה.');
+    } catch (e) {
+      showResult(false, esc(e.message || 'אירעה שגיאה'));
+    }
+    $('submitBtn').disabled = false;
+    $('submitSpinner').style.display = 'none';
+  }
+
+  function showResult(ok, html) {
+    $('resultMsg').innerHTML = '<div class="msg ' + (ok ? 'ok' : 'err') + '">' + html + '</div>';
+  }
+
+  async function createDemo() {
+    $('demoBtn').disabled = true;
+    $('demoSpinner').style.display = 'block';
+    $('demoMsg').innerHTML = '';
+    try {
+      await api('createDemoCourse', { pwd: adminPwd });
+      $('demoMsg').innerHTML = '<div class="msg ok">✨ נוצרה השתלמות לדוגמה בקוד <b>DEMO-001</b>. עברי למסך המנחה וחפשי אותה!</div>';
+    } catch (e) {
+      $('demoMsg').innerHTML = '<div class="msg err">' + esc(e.message) + '</div>';
+    }
+    $('demoBtn').disabled = false;
+    $('demoSpinner').style.display = 'none';
+  }
+</script>
+</body>
+</html>
