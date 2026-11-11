@@ -122,7 +122,7 @@ hr.divider { border:0; border-top:1px solid var(--pg-border); margin:22px 0; }
         <label for="fileInput">קובץ אקסל עם רשימת המשתתפים (ת"ז, שם, דוא"ל, פסגה)</label>
         <input type="file" id="fileInput" accept=".xlsx,.xls">
 
-        <button class="pg-btn primary" id="submitBtn">🚀 צור השתלמות ושלח למנחה</button>
+        <button class="pg-btn primary" id="submitBtn">🚀 צור דוח נוכחות</button>
         <div class="spinner" id="submitSpinner">שולחת, רגע בבקשה...</div>
         <div id="resultMsg"></div>
 
@@ -220,7 +220,7 @@ hr.divider { border:0; border-top:1px solid var(--pg-border); margin:22px 0; }
     try {
       const base64 = await readFileAsBase64(file);
       const res = await api('createCourseFromUpload', { pwd: adminPwd, code: code, base64: base64, mimeType: file.type, fileName: file.name });
-      showResult(true, '🎉 ההשתלמות "' + esc(res.courseName) + '" נוצרה בהצלחה עם ' + esc(res.participantsCount) + ' משתתפים. מייל נשלח למנחה.');
+      showResult(true, '🎉 ההשתלמות "' + esc(res.courseName) + '" נוצרה בהצלחה עם ' + esc(res.participantsCount) + ' משתתפים.');
     } catch (e) {
       showResult(false, esc(e.message || 'אירעה שגיאה'));
     }
